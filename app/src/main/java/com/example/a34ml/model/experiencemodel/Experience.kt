@@ -1,4 +1,4 @@
-package com.example.a34ml.model.experience
+package com.example.a34ml.model.experiencemodel
 
 data class ApiResponse(
     val meta: Meta,
