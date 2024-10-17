@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">34ml</string>
+    <string name="recommended_experiences">Recommended Experiences</string>
+    <string name="most_recent">Most Recent</string>
+    <string name="welcom_text">Now you can explore any experience in 360 degrees and get all the details about it all in one place.</string>
+    <string name="welcome">Welcome!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="description">Description</string>
 </resources>

@@ -54,7 +54,6 @@ class MainActivity : AppCompatActivity() {
                         experienceBinding.apply {
                            // progressBar.visibility = View.GONE
                           experience=result.data.get(1)
-                            descriptinTv.text=result.data.get(1).description
                         }
                     }
                     is ApiState.Loading -> {

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="experience"
+            type="com.example.a34ml.model.experiencemodel.Experience" />
+    </data>
+<ScrollView
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/experienceImage"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_launcher_background" />
+
+            <Button
+                android:id="@+id/exploreNowButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="EXPLORE NOW"
+                android:fontFamily="@font/gothambold"
+                android:textColor="@color/orange"
+                android:backgroundTint="@color/white" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|start"
+                android:layout_margin="16dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/viewIcon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/eye"/>
+
+                <TextView
+                    android:id="@+id/viewsCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="@{experience.views_no} Views"
+                    android:fontFamily="@font/gothambold"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="16dp"
+                android:src="@drawable/shape" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/experienceTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{experience.title}"
+                    android:textSize="21sp"
+                    android:fontFamily="@font/gothambold"/>
+
+                <TextView
+                    android:id="@+id/experienceLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{experience.city.name}, Egypt."
+                    android:fontFamily="@font/gothambold"
+                    android:textColor="@color/grey" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/shareButton"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/share_2_svgrepo_com" />
+                <ImageView
+                    android:id="@+id/likeButton"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/heart_outline" />
+
+                <TextView
+                    android:id="@+id/likesCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/gothambold"
+                    android:text="@{experience.likes_no}" />
+            </LinearLayout>
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#CCCCCC"
+            android:layout_margin="16dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/description"
+            android:textSize="24sp"
+            android:fontFamily="@font/gothamrndbold" />
+
+        <TextView
+            android:id="@+id/experienceDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="10dp"
+            android:textSize="15sp"
+            android:fontFamily="@font/gothambold"
+            android:text="@{experience.description}" />
+
+    </LinearLayout>
+</ScrollView>
+</layout>
