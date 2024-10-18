@@ -27,7 +27,7 @@ class ExperiencesViewModel(private val repo: IExperiencesRepository) : ViewModel
 
     //When the object of viewModel is created fetchCharacters is called to present the recipe list to the user
     init {
-        //fetchExperiences()
+        fetchExperiences()
         fetchRecommendedExperiences()
     }
 

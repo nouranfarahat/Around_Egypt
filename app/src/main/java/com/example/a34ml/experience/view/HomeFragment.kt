@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.a34ml.R
-import com.example.a34ml.databinding.ActivityMainBinding
 import com.example.a34ml.databinding.FragmentHomeBinding
 import com.example.a34ml.experience.viewmodel.ExperiencesViewModel
 import com.example.a34ml.experience.viewmodel.ExperiencesViewModelFactory
@@ -29,7 +28,10 @@ class HomeFragment : Fragment(),OnExperienceClickListener {
     lateinit var experienceBinding: FragmentHomeBinding
     lateinit var viewModel: ExperiencesViewModel
     lateinit var experiencesFactory: ExperiencesViewModelFactory
-    lateinit var experiencesAdapter: ExperienceAdapter
+    lateinit var recommendedExperiencesAdapter: ExperienceAdapter
+    lateinit var recentExperiencesAdapter: ExperienceAdapter
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,9 +44,12 @@ class HomeFragment : Fragment(),OnExperienceClickListener {
     ): View? {
         // Inflate the layout for this fragment
         experienceBinding =DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-        experiencesAdapter = ExperienceAdapter(this)
+        recommendedExperiencesAdapter = ExperienceAdapter(this,true)
+        recentExperiencesAdapter = ExperienceAdapter(this,false)
+
         experienceBinding.apply {
-            adapter=experiencesAdapter
+            recommendedAdapter=recommendedExperiencesAdapter
+            recentAdapter=recentExperiencesAdapter
             lifecycleOwner=this@HomeFragment
         }
 
@@ -62,14 +67,14 @@ class HomeFragment : Fragment(),OnExperienceClickListener {
         )
         viewModel = ViewModelProvider(this, experiencesFactory).get(ExperiencesViewModel::class.java)
 
-        /*lifecycleScope.launch {
+        lifecycleScope.launch {
             viewModel.experiences.collect { result ->
                 when (result) {
                     is ApiState.Success -> {
                         experienceBinding.apply {
                             // progressBar.visibility = View.GONE
                             recentRv.visibility = View.VISIBLE
-                            experiencesAdapter.submitList(result.data)
+                            recentExperiencesAdapter.submitList(result.data)
                         }
                     }
                     is ApiState.Loading -> {
@@ -94,7 +99,7 @@ class HomeFragment : Fragment(),OnExperienceClickListener {
                     }
                 }
             }
-        }*/
+        }
         lifecycleScope.launch {
             viewModel.recommendedExperiences.collect { result ->
                 when (result) {
@@ -102,7 +107,7 @@ class HomeFragment : Fragment(),OnExperienceClickListener {
                         experienceBinding.apply {
                             // progressBar.visibility = View.GONE
                             recommendedRv.visibility = View.VISIBLE
-                            experiencesAdapter.submitList(result.data)
+                            recommendedExperiencesAdapter.submitList(result.data)
                         }
                     }
                     is ApiState.Loading -> {

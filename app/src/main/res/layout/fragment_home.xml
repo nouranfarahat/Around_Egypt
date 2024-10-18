@@ -10,7 +10,10 @@
             name="experience"
             type="com.example.a34ml.model.experiencemodel.Experience" />
         <variable
-            name="adapter"
+            name="recommendedAdapter"
+            type="com.example.a34ml.experience.view.ExperienceAdapter" />
+        <variable
+            name="recentAdapter"
             type="com.example.a34ml.experience.view.ExperienceAdapter" />
 
     </data>
@@ -40,6 +43,8 @@
                 android:layout_height="wrap_content"
                 android:iconifiedByDefault="false"
                 app:queryBackground="@null"
+                android:inputType="text"
+                android:imeOptions="actionSearch"
                 android:layout_weight="1"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
@@ -56,6 +61,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+            
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -103,7 +109,7 @@
                     android:layout_height="match_parent"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:orientation="horizontal"
-                    android:adapter="@{adapter}"
+                    android:adapter="@{recommendedAdapter}"
                     tools:listitem="@layout/item_experience"
                     tools:scrollbars="horizontal"/>
                 <TextView
@@ -124,7 +130,7 @@
                     android:layout_height="match_parent"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:orientation="vertical"
-                    android:adapter="@{adapter}"
+                    android:adapter="@{recentAdapter}"
                     tools:listitem="@layout/item_experience"
                     tools:scrollbars="vertical"/>
 
