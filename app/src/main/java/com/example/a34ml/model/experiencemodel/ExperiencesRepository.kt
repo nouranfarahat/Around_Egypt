@@ -36,10 +36,18 @@ class ExperiencesRepository(var remoteSource: IExperienceRemoteSource, private v
             }
     }*/
 
-    override suspend fun getExperienceFromNetwork(): Flow<List<Experience>> {
-        return remoteSource.getExperienceFromNetwork()
+    override suspend fun getRecentExperienceFromNetwork(): Flow<List<Experience>> {
+        return remoteSource.getRecentExperienceFromNetwork()
             .catch { e ->
-                Log.e("REPO", "getExperienceFromNetwork: ${e.message}", e)
+                Log.e("REPO", "getRecentExperienceFromNetwork: ${e.message}", e)
+                throw e
+            }
+    }
+
+    override suspend fun getRecommendedExperienceFromNetwork(): Flow<List<Experience>> {
+        return remoteSource.getRecommendedExperienceFromNetwork()
+            .catch { e ->
+                Log.e("REPO", "getRecommendedExperienceFromNetwork: ${e.message}", e)
                 throw e
             }
     }

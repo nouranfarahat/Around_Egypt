@@ -1,14 +1,16 @@
 package com.example.a34ml.model.experiencemodel
 
+import java.io.Serializable
+
 data class ApiResponse(
     val meta: Meta,
     val data: List<Experience>,
     val pagination: Pagination
-)
+): Serializable
 data class Meta(
     val code: Int,
     val errors: List<String>
-)
+): Serializable
 
 data class Experience(
     val id: String,
@@ -40,48 +42,48 @@ data class Experience(
     val reviews_no: Int,
     val audio_url: String,
     val has_audio: Boolean
-)
+): Serializable
 data class Tag(
     val id: Int,
     val name: String,
     val disable: Any?,
     val top_pick: Int
-)
+): Serializable
 
 data class City(
     val id: Int,
     val name: String,
     val disable: Any?,
     val top_pick: Int
-)
+): Serializable
 
 data class Period(
     val id: String,
     val value: String,
     val created_at: String,
     val updated_at: String
-)
+): Serializable
 
 data class Era(
     val id: String,
     val value: String,
     val created_at: String,
     val updated_at: String
-)
+): Serializable
 data class GmapLocation(
     val type: String,
     val coordinates: List<Double>
-)
+): Serializable
 
 data class TranslatedOpeningHours(
     val day: String,
     val time: String
-)
+): Serializable
 
 data class TicketPrice(
     val type: String,
     val price: Int
-)
+): Serializable
 
 data class Review(
     val id: String,
@@ -90,6 +92,6 @@ data class Review(
     val rating: Int,
     val comment: String,
     val created_at: String
-)
+): Serializable
 
 data class Pagination(val id: String)

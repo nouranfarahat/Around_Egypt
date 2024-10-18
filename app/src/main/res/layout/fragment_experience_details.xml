@@ -27,14 +27,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_launcher_background" />
+                myImageUrl="@{experience.cover_photo}"/>
 
             <Button
                 android:id="@+id/exploreNowButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="EXPLORE NOW"
+                android:text="@string/explore_now"
                 android:fontFamily="@font/gothambold"
                 android:textColor="@color/orange"
                 android:backgroundTint="@color/white" />
@@ -57,7 +57,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:text="@{experience.views_no} Views"
+                    myViews="@{experience.views_no}"
                     android:fontFamily="@font/gothambold"
                     android:textColor="@color/white"/>
             </LinearLayout>
@@ -94,7 +94,7 @@
                     android:id="@+id/experienceLocation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{experience.city.name}, Egypt."
+                    myCountry="@{experience.city.name}"
                     android:fontFamily="@font/gothambold"
                     android:textColor="@color/grey" />
             </LinearLayout>
@@ -124,7 +124,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:fontFamily="@font/gothambold"
-                    android:text="@{experience.likes_no}" />
+                    android:text="@{String.valueOf(experience.likes_no)}" />
             </LinearLayout>
 
         </LinearLayout>

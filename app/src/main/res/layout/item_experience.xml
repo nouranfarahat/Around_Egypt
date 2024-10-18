@@ -15,7 +15,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
+    android:layout_margin="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_launcher_background"/>
+                myImageUrl="@{experience.cover_photo}"/>
 
             <LinearLayout
                 android:id="@+id/recommended_layout"
@@ -89,7 +89,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:text="@{experience.views_no}"
+                    android:text="@{String.valueOf(experience.views_no)}"
                     android:fontFamily="@font/gothambold"
                     android:textColor="#FFFFFF"/>
             </LinearLayout>
@@ -129,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:fontFamily="@font/gothambold"
-                android:text="@{experience.likes_no}"/>
+                android:text="@{String.valueOf(experience.likes_no)}"/>
             <ImageView
                 android:id="@+id/likeIcon"
                 android:layout_width="24dp"
