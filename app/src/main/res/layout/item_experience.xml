@@ -10,6 +10,9 @@
         <variable
             name="action"
             type="com.example.a34ml.experience.view.OnExperienceClickListener" />
+        <variable
+            name="likePressed"
+            type="com.example.a34ml.experience.view.OnLikeClickListener" />
     </data>
 <androidx.cardview.widget.CardView
     android:layout_width="match_parent"
@@ -135,7 +138,8 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginStart="10dp"
-                android:src="@drawable/heart_outline"/>
+                android:src="@drawable/heart_outline"
+                android:onClick="@{()->likePressed.onLikeClick(experience.id)}"/>
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

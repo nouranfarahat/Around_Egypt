@@ -1,5 +1,6 @@
 package com.example.a34ml.experience.view
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +12,21 @@ import com.example.a34ml.R
 import com.example.a34ml.databinding.ItemExperienceBinding
 import com.example.a34ml.model.experiencemodel.Experience
 
-class ExperienceAdapter(var listener: OnExperienceClickListener, val showRecomendedLayout: Boolean)
+class ExperienceAdapter(var listener: OnExperienceClickListener,var likeListener: OnLikeClickListener, val showRecomendedLayout: Boolean)
     : ListAdapter<Experience, ExperienceAdapter.ViewHolder>(ExperienceDiffUtil()) {
+
+    private var lastLikedItemId: String? = null
+
+
+    fun updateExperience(updatedExperience: Experience) {
+        val currentList = currentList.toMutableList()
+        val position = currentList.indexOfFirst { it.id == updatedExperience.id }
+        if (position != -1) {
+            updatedExperience.is_liked=true
+            currentList[position] = updatedExperience
+            submitList(currentList)
+        }
+    }
 
     class ViewHolder(var experienceBinding:ItemExperienceBinding): RecyclerView.ViewHolder(experienceBinding.root)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -22,9 +36,41 @@ class ExperienceAdapter(var listener: OnExperienceClickListener, val showRecomen
     }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentExperience=getItem(position)
-        holder.experienceBinding.experience=currentExperience
-        holder.experienceBinding.action=listener
-        holder.experienceBinding.recommendedLayout.visibility = if (showRecomendedLayout) View.VISIBLE else View.GONE
+        holder.experienceBinding.apply {
+            experience=currentExperience
+            action=listener
+            likePressed=likeListener
+            recommendedLayout.visibility = if (showRecomendedLayout) View.VISIBLE else View.GONE
+            /*likeIcon.setOnClickListener {
+                lastLikedItemId = currentExperience.id // Store the ID of the liked item
+                Log.e("adapter", "onBindView:${lastLikedItemId}")
+
+                if (currentExperience.is_liked!= true) {
+                    likeListener.onLikeClick(currentExperience.id)
+                }
+            }*/
+
+            likeIcon.setImageResource(
+                if (currentExperience.is_liked == true) R.drawable.heart
+                else R.drawable.heart_outline
+            )
+            likesCount.text = currentExperience.likes_no.toString()
+            likeIcon.isEnabled = currentExperience.is_liked != true
+            /*likeIcon.setOnClickListener {
+                if (currentExperience.is_liked == true) {
+                    likePressed.onLikeClick(currentExperience.id)
+                    currentExperience.is_liked = true
+                    notifyItemChanged(position)
+                }
+                likeIcon.isEnabled = currentExperience.is_liked == true
+            }
+            likeIcon.setImageResource(
+                if (currentExperience.is_liked == true) R.drawable.heart
+                else R.drawable.heart_outline
+            )*/
+        }
+
+
     }
 }
 

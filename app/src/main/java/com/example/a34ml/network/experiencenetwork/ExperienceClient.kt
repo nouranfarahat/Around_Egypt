@@ -46,21 +46,19 @@ class ExperienceClient: IExperienceRemoteSource {
         emit(searchResultExperiences)
     }
 
-
-    /*    override suspend fun getCharactersFromNetwork(): Flow<List<Character>> =flow {
-            val characters = characterService.getAllCharacters().body()?.results?: listOf()
-            Log.i("NET", "getCharactersFromNetwork: client ${characters.get(1).name}")
-
-            emit(characters)
+    override suspend fun postLiketoNetwork(id: String): Flow<Int> =flow{
+        val likeCount= experienceService.likeExperience(id).body()?.data
+        if (likeCount != null) {
+            emit(likeCount)
         }
+    }
 
-        override suspend fun getCharacterInfoFromNetwork(id:Long): Flow<Character> =flow {
-            val character = characterService.getCharacterInfo(id).body()
+    override suspend fun getExperienceByIDFromNetwork(id: String): Flow<Experience> =flow {
+        val experience = experienceService.getByIdExperience(id).data
+        Log.i("NET", "getRecommendedExperienceFromNetwork: client ${experience.description}")
 
-            if (character != null) {
-                emit(character)
-            }
-        }*/
+        emit(experience)
+    }
 
 
 }

@@ -1,7 +1,11 @@
 package com.example.a34ml.model.experiencemodel
 
 import java.io.Serializable
-
+data class LikeResponse(
+    val meta: Meta,
+    val data: Int,
+    val pagination: Pagination
+): Serializable
 data class ApiResponse(
     val meta: Meta,
     val data: List<Experience>,
@@ -11,7 +15,11 @@ data class Meta(
     val code: Int,
     val errors: List<String>
 ): Serializable
-
+data class ExperienceResponse(
+    val meta: Meta,
+    val data: Experience,
+    val pagination: Pagination
+): Serializable
 data class Experience(
     val id: String,
     val title: String,
@@ -36,7 +44,7 @@ data class Experience(
     val starting_price: Int?,
     val ticket_prices: List<TicketPrice>,
     val experience_tips: List<Any>,
-    val is_liked: Boolean?,
+    var is_liked: Boolean?,
     val reviews: List<Review>,
     val rating: Int,
     val reviews_no: Int,

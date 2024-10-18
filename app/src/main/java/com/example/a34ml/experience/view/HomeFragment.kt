@@ -28,7 +28,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-class HomeFragment : Fragment(),OnExperienceClickListener {
+class HomeFragment : Fragment(),OnExperienceClickListener ,OnLikeClickListener{
     lateinit var experienceBinding: FragmentHomeBinding
     lateinit var viewModel: ExperiencesViewModel
     lateinit var experiencesFactory: ExperiencesViewModelFactory
@@ -48,9 +48,9 @@ class HomeFragment : Fragment(),OnExperienceClickListener {
     ): View? {
         // Inflate the layout for this fragment
         experienceBinding =DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-        recommendedExperiencesAdapter = ExperienceAdapter(this,true)
-        recentExperiencesAdapter = ExperienceAdapter(this,false)
-        searchResultAdapter = ExperienceAdapter(this,false)
+        recommendedExperiencesAdapter = ExperienceAdapter(this,this,true)
+        recentExperiencesAdapter = ExperienceAdapter(this,this,false)
+        searchResultAdapter = ExperienceAdapter(this,this,false)
 
 
         experienceBinding.apply {
@@ -70,6 +70,7 @@ class HomeFragment : Fragment(),OnExperienceClickListener {
 
         setupSearchView()
         observeSearchResults()
+        observeLikeNo()
         //experienceBinding.descriptinTv.text="Yeeees"
         experiencesFactory = ExperiencesViewModelFactory(
             ExperiencesRepository.getInstance(
@@ -212,7 +213,44 @@ class HomeFragment : Fragment(),OnExperienceClickListener {
             }
         }
     }
+    private fun observeLikeNo() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.likeResult.collect { result ->
+                    when (result) {
+                        is ApiState.Success -> {
+                            val newLikesCount = result.data
 
+                            experienceBinding?.apply {
+                               // welcomeText.text=newLikesCount.toString()
+                                val updatedExperience = result.data
+                                recommendedExperiencesAdapter.updateExperience(updatedExperience)
+                                recentExperiencesAdapter.updateExperience(updatedExperience)
+                                searchResultAdapter.updateExperience(updatedExperience)
+
+                            }
+                        }
+                        is ApiState.Loading -> {
+                            Log.i("Network", "Search: Loading")
+                            experienceBinding?.apply {
+                                //searchResultsRv.visibility = View.GONE
+                            }
+                        }
+                        is ApiState.Failure -> {
+                            Log.e("Network", "Search failed: ")
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Check your Connection",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     override fun onCardClick(experience: Experience) {
         Toast.makeText(
             requireContext(),
@@ -221,6 +259,18 @@ class HomeFragment : Fragment(),OnExperienceClickListener {
         ).show()
         val action = HomeFragmentDirections.actionHomeFragmentToExperienceDetailsFragment(experience)
         findNavController().navigate(action)
+    }
+
+    override fun onLikeClick(id: String) {
+        viewModel.likeExperience(id)
+
+        Toast.makeText(
+            requireContext(),
+            "${id}",
+            Toast.LENGTH_SHORT
+        ).show()
+
+        observeLikeNo()
     }
 
 
