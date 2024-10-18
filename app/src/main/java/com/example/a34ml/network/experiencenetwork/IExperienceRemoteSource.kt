@@ -5,5 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface IExperienceRemoteSource {
 
-    suspend fun getExperienceFromNetwork(): Flow<List<Experience>>
+    suspend fun getRecentExperienceFromNetwork(): Flow<List<Experience>>
+    suspend fun getRecommendedExperienceFromNetwork(): Flow<List<Experience>>
+
 }

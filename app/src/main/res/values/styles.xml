@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<style name="CustomSearchViewStyle" parent="Widget.AppCompat.SearchView">
+<item name="android:textColorHint">@color/grey</item>
+<item name="android:editTextColor">@color/grey</item>
+<item name="android:textColor">@color/grey</item>
+</style>
+</resources>

@@ -15,18 +15,25 @@ import kotlinx.coroutines.launch
 class ExperiencesViewModel(private val repo: IExperiencesRepository) : ViewModel() {
 
     //Backing property
+    //Most Rexent
     private var _experiences = MutableStateFlow<ApiState<List<Experience>>>(ApiState.Loading)
     val experiences: StateFlow<ApiState<List<Experience>>>
         get() = _experiences
 
+    //Recommended
+    private var _recommendedExperiences = MutableStateFlow<ApiState<List<Experience>>>(ApiState.Loading)
+    val recommendedExperiences: StateFlow<ApiState<List<Experience>>>
+        get() = _recommendedExperiences
+
     //When the object of viewModel is created fetchCharacters is called to present the recipe list to the user
     init {
-        fetchExperiences()
+        //fetchExperiences()
+        fetchRecommendedExperiences()
     }
 
      fun fetchExperiences() {
         viewModelScope.launch(Dispatchers.IO) {
-            repo.getExperienceFromNetwork()
+            repo.getRecentExperienceFromNetwork()
                 .catch {
 
                     error->_experiences.value=ApiState.Failure(error)
@@ -42,5 +49,22 @@ class ExperiencesViewModel(private val repo: IExperiencesRepository) : ViewModel
 
         }
     }
+    fun fetchRecommendedExperiences() {
+        viewModelScope.launch(Dispatchers.IO) {
+            repo.getRecommendedExperienceFromNetwork()
+                .catch {
 
+                        error->_recommendedExperiences.value=ApiState.Failure(error)
+                    Log.e("ViewModel", "fetchRecommendedExperiences: ${error.message}", error)
+
+                }
+                .collect{
+                        data->_recommendedExperiences.value=ApiState.Success(data)
+                    //check if the data arrived here
+                    Log.i("ViewModel", "fetchRecommendedExperiences: ${data[0].description}")
+                }
+
+
+        }
+    }
 }
