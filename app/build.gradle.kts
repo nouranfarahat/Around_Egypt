@@ -78,6 +78,8 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
     implementation ("androidx.fragment:fragment:1.6.0")
 
+    implementation ("com.google.android.gms:play-services-base:18.1.0")
+
 
 
 }

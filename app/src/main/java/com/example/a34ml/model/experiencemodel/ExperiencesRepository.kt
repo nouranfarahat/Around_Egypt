@@ -51,12 +51,14 @@ class ExperiencesRepository(var remoteSource: IExperienceRemoteSource, private v
                 throw e
             }
     }
-    /*Log.i(
-        "REPO",
-        "getRecipesFromNetwork: repo ${remoteSource.getCharactersFromNetwork()}"
-    )
 
-    return remoteSource.getCharactersFromNetwork()*/
+    override suspend fun getSearchResultExperienceFromNetwork(query: String): Flow<List<Experience>> {
+        return remoteSource.getSearchResultExperienceFromNetwork(query)
+            .catch { e ->
+                Log.e("REPO", "getSearchResultExperienceFromNetwork: ${e.message}", e)
+                throw e
+            }
+    }
     }
 
 

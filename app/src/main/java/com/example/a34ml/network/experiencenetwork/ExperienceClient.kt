@@ -39,6 +39,13 @@ class ExperienceClient: IExperienceRemoteSource {
         emit(experiences)
     }
 
+    override suspend fun getSearchResultExperienceFromNetwork(query: String): Flow<List<Experience>> =flow {
+        val searchResultExperiences = experienceService.getSearchExperiences(query).data
+        Log.i("NET", "getSearchResultExperienceFromNetwork: client ${searchResultExperiences.get(0).description}")
+
+        emit(searchResultExperiences)
+    }
+
 
     /*    override suspend fun getCharactersFromNetwork(): Flow<List<Character>> =flow {
             val characters = characterService.getAllCharacters().body()?.results?: listOf()
