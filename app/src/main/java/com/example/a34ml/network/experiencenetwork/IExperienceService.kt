@@ -2,6 +2,8 @@ package com.example.a34ml.network.experiencenetwork
 
 import com.example.a34ml.model.experiencemodel.ApiResponse
 import com.example.a34ml.model.experiencemodel.Experience
+import com.example.a34ml.model.experiencemodel.ExperienceResponse
+import com.example.a34ml.model.experiencemodel.LikeResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -19,9 +21,9 @@ interface IExperienceService {
     suspend fun getSearchExperiences(@Query("filter[title]") searchText: String): ApiResponse
 
     @GET("api/v2/experiences/{id}")
-    suspend fun getExperience(@Path("id") id: String): Experience
+    suspend fun getByIdExperience(@Path("id") id: String): ExperienceResponse
 
     @POST("api/v2/experiences/{id}/like")
-    suspend fun likeExperience(@Path("id") id: String): Response<Unit>
+    suspend fun likeExperience(@Path("id") id: String): Response<LikeResponse>
 
 }

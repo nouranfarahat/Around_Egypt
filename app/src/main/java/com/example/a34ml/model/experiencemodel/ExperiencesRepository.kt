@@ -59,7 +59,24 @@ class ExperiencesRepository(var remoteSource: IExperienceRemoteSource, private v
                 throw e
             }
     }
+
+    override suspend fun postLiketoNetwork(id: String): Flow<Int> {
+        return remoteSource.postLiketoNetwork(id)
+            .catch { e ->
+                Log.e("REPO", "postLiketoNetwork: ${e.message}", e)
+                throw e
+            }
     }
+
+    override suspend fun getExperienceByIDFromNetwork(id: String): Flow<Experience> {
+        return remoteSource.getExperienceByIDFromNetwork(id)
+            .catch { e ->
+                Log.e("REPO", "getExperienceByIDFromNetwork: ${e.message}", e)
+                throw e
+            }
+    }
+
+}
 
 
 

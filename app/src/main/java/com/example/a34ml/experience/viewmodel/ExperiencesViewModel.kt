@@ -30,7 +30,16 @@ class ExperiencesViewModel(private val repo: IExperiencesRepository) : ViewModel
     val searchResults: StateFlow<ApiState<List<Experience>>>
         get()= _searchResults
 
-    //When the object of viewModel is created fetchCharacters is called to present the recipe list to the user
+    //Like Result
+    private val _likeResult =MutableStateFlow<ApiState<Experience>>(ApiState.Loading)
+    val likeResult: StateFlow<ApiState<Experience>>
+        get()= _likeResult
+
+    //Experirnce
+    private val _experience =MutableStateFlow<ApiState<Experience>>(ApiState.Loading)
+    val experience: StateFlow<ApiState<Experience>>
+        get()= _experience
+
     init {
         fetchExperiences()
         fetchRecommendedExperiences()
@@ -88,6 +97,38 @@ class ExperiencesViewModel(private val repo: IExperiencesRepository) : ViewModel
                 }
 
 
+        }
+    }
+    fun likeExperience(id: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repo.postLiketoNetwork(id)
+                .catch {
+
+                        error ->
+                    _likeResult.value = ApiState.Failure(error)
+                    Log.e("ViewModel", "fetchSearchResult: ${error.message}", error)
+
+                }
+                .collect { data ->
+                    fetchExperience(id)
+                    _likeResult.value =_experience.value// ApiState.Success(updatedExperience)
+                }
+        }
+    }
+    fun fetchExperience(id:String)
+    {
+        viewModelScope.launch(Dispatchers.IO) {
+            repo.getExperienceByIDFromNetwork(id)
+                .catch {
+
+                        error ->
+                    _experience.value = ApiState.Failure(error)
+                    Log.e("ViewModel", "fetchSearchResult: ${error.message}", error)
+
+                }
+                .collect { data ->
+                    _experience.value = ApiState.Success(data)
+                }
         }
     }
 }
