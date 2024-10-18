@@ -1,6 +1,7 @@
 package com.example.a34ml.experience.view
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
@@ -10,7 +11,7 @@ import com.example.a34ml.R
 import com.example.a34ml.databinding.ItemExperienceBinding
 import com.example.a34ml.model.experiencemodel.Experience
 
-class ExperienceAdapter(var listener: OnExperienceClickListener)
+class ExperienceAdapter(var listener: OnExperienceClickListener, val showRecomendedLayout: Boolean)
     : ListAdapter<Experience, ExperienceAdapter.ViewHolder>(ExperienceDiffUtil()) {
 
     class ViewHolder(var experienceBinding:ItemExperienceBinding): RecyclerView.ViewHolder(experienceBinding.root)
@@ -23,6 +24,7 @@ class ExperienceAdapter(var listener: OnExperienceClickListener)
         val currentExperience=getItem(position)
         holder.experienceBinding.experience=currentExperience
         holder.experienceBinding.action=listener
+        holder.experienceBinding.recommendedLayout.visibility = if (showRecomendedLayout) View.VISIBLE else View.GONE
     }
 }
 

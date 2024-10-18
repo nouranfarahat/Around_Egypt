@@ -33,10 +33,17 @@ class ExperienceClient: IExperienceRemoteSource {
     }
 
     override suspend fun getRecommendedExperienceFromNetwork(): Flow<List<Experience>>  =flow {
-        val experiences = experienceService.getRecommendedExperiences().data?: listOf()
+        val experiences = experienceService.getRecommendedExperiences().data
         Log.i("NET", "getRecommendedExperienceFromNetwork: client ${experiences.get(1).description}")
 
         emit(experiences)
+    }
+
+    override suspend fun getSearchResultExperienceFromNetwork(query: String): Flow<List<Experience>> =flow {
+        val searchResultExperiences = experienceService.getSearchExperiences(query).data
+        Log.i("NET", "getSearchResultExperienceFromNetwork: client ${searchResultExperiences.get(0).description}")
+
+        emit(searchResultExperiences)
     }
 
 

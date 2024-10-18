@@ -10,7 +10,13 @@
             name="experience"
             type="com.example.a34ml.model.experiencemodel.Experience" />
         <variable
-            name="adapter"
+            name="recommendedAdapter"
+            type="com.example.a34ml.experience.view.ExperienceAdapter" />
+        <variable
+            name="recentAdapter"
+            type="com.example.a34ml.experience.view.ExperienceAdapter" />
+        <variable
+            name="searchAdapter"
             type="com.example.a34ml.experience.view.ExperienceAdapter" />
 
     </data>
@@ -39,13 +45,16 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:iconifiedByDefault="false"
-                app:queryBackground="@null"
+                app:iconifiedByDefault="false"
+                android:inputType="text"
+                android:imeOptions="actionSearch"
                 android:layout_weight="1"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/search_background"
                 app:queryHint='Try "Luxor"'
-
+                android:focusable="true"
+                android:clickable="true"
                 app:searchIcon="@drawable/baseline_search_24"
                 style="@style/CustomSearchViewStyle"/>
             <ImageView
@@ -57,79 +66,101 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <ViewFlipper
+                android:id="@+id/viewFlipper"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="0dp"
+                android:layout_weight="1">
 
-                <TextView
-                    android:id="@+id/welcomeText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/welcome"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/gothamrndbold"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"/>
-
-                <TextView
+                <!-- Home content -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginStart="16dp"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/gothammedium"
-                    android:text="@string/welcom_text"/>
+                    android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:textColor="@color/black"
-                    android:text="@string/recommended_experiences"
-                    android:textSize="24sp"
-                    android:fontFamily="@font/gothamrndbold"/>
+                    <TextView
+                        android:id="@+id/welcomeText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/welcome"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/gothamrndbold"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textSize="16sp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="16dp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/gothammedium"
+                        android:text="@string/welcom_text"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:textColor="@color/black"
+                        android:text="@string/recommended_experiences"
+                        android:textSize="24sp"
+                        android:fontFamily="@font/gothamrndbold"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recommended_rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:orientation="horizontal"
+                        android:adapter="@{recommendedAdapter}"
+                        tools:listitem="@layout/item_experience"
+                        tools:scrollbars="horizontal"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/most_recent"
+                        android:textSize="24sp"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/gothamrndbold"
+                        android:textStyle="bold"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recent_rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:orientation="vertical"
+                        android:adapter="@{recentAdapter}"
+                        tools:listitem="@layout/item_experience"
+                        tools:scrollbars="vertical"/>
+
+
+                </LinearLayout>
+
+                <!-- Search results -->
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recommended_rv"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:orientation="horizontal"
-                    android:adapter="@{adapter}"
-                    tools:listitem="@layout/item_experience"
-                    tools:scrollbars="horizontal"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/most_recent"
-                    android:textSize="24sp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/gothamrndbold"
-                    android:textStyle="bold"/>
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recent_rv"
+                    android:id="@+id/searchResults_rv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:orientation="vertical"
-                    android:adapter="@{adapter}"
+                    android:adapter="@{searchAdapter}"
                     tools:listitem="@layout/item_experience"
                     tools:scrollbars="vertical"/>
 
+            </ViewFlipper>
 
-            </LinearLayout>
+
         </ScrollView>
     </LinearLayout>
 

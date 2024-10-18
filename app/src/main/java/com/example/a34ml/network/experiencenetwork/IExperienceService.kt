@@ -16,7 +16,7 @@ interface IExperienceService {
     suspend fun getRecommendedExperiences(@Query("filter[recommended]") recommended: Boolean = true): ApiResponse
 
     @GET("api/v2/experiences")
-    suspend fun searchExperiences(@Query("filter[title]") searchText: String): ApiResponse
+    suspend fun getSearchExperiences(@Query("filter[title]") searchText: String): ApiResponse
 
     @GET("api/v2/experiences/{id}")
     suspend fun getExperience(@Path("id") id: String): Experience

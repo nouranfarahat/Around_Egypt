@@ -25,9 +25,14 @@ class ExperiencesViewModel(private val repo: IExperiencesRepository) : ViewModel
     val recommendedExperiences: StateFlow<ApiState<List<Experience>>>
         get() = _recommendedExperiences
 
+    //Search Result
+    private val _searchResults = MutableStateFlow<ApiState<List<Experience>>>(ApiState.Loading)
+    val searchResults: StateFlow<ApiState<List<Experience>>>
+        get()= _searchResults
+
     //When the object of viewModel is created fetchCharacters is called to present the recipe list to the user
     init {
-        //fetchExperiences()
+        fetchExperiences()
         fetchRecommendedExperiences()
     }
 
@@ -62,6 +67,24 @@ class ExperiencesViewModel(private val repo: IExperiencesRepository) : ViewModel
                         data->_recommendedExperiences.value=ApiState.Success(data)
                     //check if the data arrived here
                     Log.i("ViewModel", "fetchRecommendedExperiences: ${data[0].description}")
+                }
+
+
+        }
+    }
+    fun fetchSearchResult(query:String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repo.getSearchResultExperienceFromNetwork(query)
+                .catch {
+
+                        error->_searchResults.value=ApiState.Failure(error)
+                    Log.e("ViewModel", "fetchSearchResult: ${error.message}", error)
+
+                }
+                .collect{
+                        data->_searchResults.value=ApiState.Success(data)
+                    //check if the data arrived here
+                    //Log.i("ViewModel", "fetchSearchResult: ${data[0].description}")
                 }
 
 
