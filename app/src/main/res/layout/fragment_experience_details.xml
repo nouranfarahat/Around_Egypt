@@ -29,12 +29,13 @@
                 android:scaleType="centerCrop"
                 myImageUrl="@{experience.cover_photo}"/>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/exploreNowButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/explore_now"
+                app:cornerRadius="10dp"
                 android:fontFamily="@font/gothambold"
                 android:textColor="@color/orange"
                 android:backgroundTint="@color/white" />
@@ -87,7 +88,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{experience.title}"
-                    android:textSize="21sp"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
                     android:fontFamily="@font/gothambold"/>
 
                 <TextView
@@ -139,7 +141,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="@string/description"
-            android:textSize="24sp"
+            android:textSize="22sp"
+            android:textColor="@color/black"
             android:fontFamily="@font/gothamrndbold" />
 
         <TextView
@@ -149,8 +152,9 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginTop="10dp"
-            android:textSize="15sp"
-            android:fontFamily="@font/gothambold"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/gothammedium"
             android:text="@{experience.description}" />
 
     </LinearLayout>

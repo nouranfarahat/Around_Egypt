@@ -23,7 +23,7 @@ import java.net.URL
 @BindingAdapter("myViews")
 fun appendViews(view:TextView,viewsNo:Int)
 {
-    view.setText(viewsNo.toString()+" Views")
+    view.setText(viewsNo.toString()+" views")
 }
 
 @BindingAdapter("myImageUrl")
