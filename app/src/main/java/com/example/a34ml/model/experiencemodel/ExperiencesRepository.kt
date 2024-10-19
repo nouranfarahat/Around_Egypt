@@ -23,18 +23,6 @@ class ExperiencesRepository(var remoteSource: IExperienceRemoteSource, private v
 
     }
 
-    /*override suspend fun getCharactersFromNetwork(): Flow<List<Character>> {
-
-        if (!NetworkUtils.isNetworkAvailable(context)) {
-            return flow { throw Exception("No internet connection") }
-        }
-
-        return remoteSource.getCharactersFromNetwork()
-            .catch { e ->
-                Log.e("REPO", "getCharactersFromNetwork: ${e.message}", e)
-                throw e
-            }
-    }*/
 
     override suspend fun getRecentExperienceFromNetwork(): Flow<List<Experience>> {
         return remoteSource.getRecentExperienceFromNetwork()

@@ -35,7 +35,6 @@ class ExperienceDetailsFragment : Fragment() {
         }
 
         return experienceDetailsBinding.root
-        //return inflater.inflate(R.layout.fragment_experience_details, container, false)
     }
 
 }

@@ -66,12 +66,10 @@ class HomeFragment : Fragment(),OnExperienceClickListener ,OnLikeClickListener{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       // val closeButton = experienceBinding.searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)
 
         setupSearchView()
         observeSearchResults()
         observeLikeNo()
-        //experienceBinding.descriptinTv.text="Yeeees"
         experiencesFactory = ExperiencesViewModelFactory(
             ExperiencesRepository.getInstance(
                 ExperienceClient.getInstance(),requireContext()
@@ -92,7 +90,6 @@ class HomeFragment : Fragment(),OnExperienceClickListener ,OnLikeClickListener{
                     is ApiState.Loading -> {
                         Log.i("Network", "onCreate: lading")
                         experienceBinding.apply {
-                            // progressBar.visibility = View.GONE
                             recentRv.visibility = View.GONE
                         }
 
@@ -117,7 +114,6 @@ class HomeFragment : Fragment(),OnExperienceClickListener ,OnLikeClickListener{
                 when (result) {
                     is ApiState.Success -> {
                         experienceBinding.apply {
-                            // progressBar.visibility = View.GONE
                             recommendedRv.visibility = View.VISIBLE
                             recommendedExperiencesAdapter.submitList(result.data)
                         }
@@ -125,7 +121,6 @@ class HomeFragment : Fragment(),OnExperienceClickListener ,OnLikeClickListener{
                     is ApiState.Loading -> {
                         Log.i("Network", "onCreate: lading")
                         experienceBinding.apply {
-                            // progressBar.visibility = View.GONE
                             recommendedRv.visibility = View.GONE
                         }
 
@@ -165,7 +160,6 @@ class HomeFragment : Fragment(),OnExperienceClickListener ,OnLikeClickListener{
         // Access and set listener for the close button
         val closeButton = experienceBinding.searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)
         closeButton.setOnClickListener {
-            //experienceBinding.searchView.setQuery("", false)
             clearSearch()
         }
 
@@ -222,7 +216,6 @@ class HomeFragment : Fragment(),OnExperienceClickListener ,OnLikeClickListener{
                             val newLikesCount = result.data
 
                             experienceBinding?.apply {
-                               // welcomeText.text=newLikesCount.toString()
                                 val updatedExperience = result.data
                                 recommendedExperiencesAdapter.updateExperience(updatedExperience)
                                 recentExperiencesAdapter.updateExperience(updatedExperience)
@@ -233,7 +226,6 @@ class HomeFragment : Fragment(),OnExperienceClickListener ,OnLikeClickListener{
                         is ApiState.Loading -> {
                             Log.i("Network", "Search: Loading")
                             experienceBinding?.apply {
-                                //searchResultsRv.visibility = View.GONE
                             }
                         }
                         is ApiState.Failure -> {
@@ -252,11 +244,11 @@ class HomeFragment : Fragment(),OnExperienceClickListener ,OnLikeClickListener{
         }
     }
     override fun onCardClick(experience: Experience) {
-        Toast.makeText(
+        /*Toast.makeText(
             requireContext(),
             "${experience.title}",
             Toast.LENGTH_SHORT
-        ).show()
+        ).show()*/
         val action = HomeFragmentDirections.actionHomeFragmentToExperienceDetailsFragment(experience)
         findNavController().navigate(action)
     }
@@ -264,11 +256,11 @@ class HomeFragment : Fragment(),OnExperienceClickListener ,OnLikeClickListener{
     override fun onLikeClick(id: String) {
         viewModel.likeExperience(id)
 
-        Toast.makeText(
+       /* Toast.makeText(
             requireContext(),
             "${id}",
             Toast.LENGTH_SHORT
-        ).show()
+        ).show()*/
 
         observeLikeNo()
     }

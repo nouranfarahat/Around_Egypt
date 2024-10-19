@@ -56,18 +56,7 @@ class ExperienceAdapter(var listener: OnExperienceClickListener,var likeListener
             )
             likesCount.text = currentExperience.likes_no.toString()
             likeIcon.isEnabled = currentExperience.is_liked != true
-            /*likeIcon.setOnClickListener {
-                if (currentExperience.is_liked == true) {
-                    likePressed.onLikeClick(currentExperience.id)
-                    currentExperience.is_liked = true
-                    notifyItemChanged(position)
-                }
-                likeIcon.isEnabled = currentExperience.is_liked == true
-            }
-            likeIcon.setImageResource(
-                if (currentExperience.is_liked == true) R.drawable.heart
-                else R.drawable.heart_outline
-            )*/
+
         }
 
 

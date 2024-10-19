@@ -19,7 +19,6 @@ import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.URL
 
-//This function is used to convert the duration from the format of "PT30M" into "30 min" and it is used in the recipe_card.xml
 @BindingAdapter("myViews")
 fun appendViews(view:TextView,viewsNo:Int)
 {
