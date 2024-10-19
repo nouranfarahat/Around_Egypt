@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 class ExperiencesViewModel(private val repo: IExperiencesRepository) : ViewModel() {
 
     //Backing property
-    //Most Rexent
+    //Most Recent
     private var _experiences = MutableStateFlow<ApiState<List<Experience>>>(ApiState.Loading)
     val experiences: StateFlow<ApiState<List<Experience>>>
         get() = _experiences
